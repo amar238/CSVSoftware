@@ -9,7 +9,7 @@ router.post('/create',employeeController.create);
 
 // sign in
 router.get('/sign-in',employeeController.singIn);
-router.post('/create-session',passport.authenticate("local", { failureRedirect: "/emp/sign-in" }),employeeController.createSession);
+router.post('/create-session',passport.authenticate('local', { failureRedirect: "/emp/sign-in" }),employeeController.createSession);
 
 // sign out
 router.get('/sign-out',employeeController.destroySession); 

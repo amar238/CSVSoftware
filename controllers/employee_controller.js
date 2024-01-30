@@ -18,7 +18,7 @@ module.exports.create = async(req,res)=>{
             return res.redirect('back');
         }
         const emp = await Emp.findOne({email: req.body.email});
-        
+
         if(!emp){
             await Emp.create(req.body);
             return res.redirect('/');  // To be change later
@@ -32,9 +32,8 @@ module.exports.create = async(req,res)=>{
 } 
 
 // sign in page
-module.exports.singIn = async(req,res)=>{
+module.exports.singIn =(req,res)=>{
     try {
-        console.log("in sign in controller");
         return res.render('sign_in');
     } catch (error) {
         console.log(error)
@@ -43,17 +42,12 @@ module.exports.singIn = async(req,res)=>{
 
 //after sign in
 module.exports.createSession = (req,res)=>{
-    console.log(req.session);
     return res.redirect('/');
 }
 
 // logout
 module.exports.destroySession = (req,res)=>{
-    console.log(req.session);
-    req.logout((err)=>{
-        if(err)
-            console.log(err);
-    });
+    req.logout((err)=>{});
     return res.redirect('/');
 }
     

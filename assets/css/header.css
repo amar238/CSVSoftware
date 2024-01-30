@@ -1,0 +1,24 @@
+#header{
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    a{ 
+        text-decoration: none;
+        color: white;
+    }
+    a:hover{
+        color: yellow;
+    }
+}
+
+#menu{
+    list-style: none;
+    display: inline;
+    li{
+        display: inline-block;
+        width: 60px;
+        text-align: center;
+        font-size: 15px;
+    }
+}
