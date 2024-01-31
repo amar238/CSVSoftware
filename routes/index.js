@@ -6,5 +6,5 @@ const homeController = require('../controllers/home_controller');
 router.get('/',homeController.home);
 // router.get('/',passport.checkAuthentication,homeController.home);
 router.use('/emp',require('./employee_routes'));
-
+router.use('/batch',require('./batch_routes'));
 module.exports = router;

@@ -3,10 +3,9 @@ const Emp = require('../models/employee');
 // sign up page
 module.exports.singUp = async(req,res)=>{
     try {
-        console.log("in sign up controller");
         return res.render('sign_up');
     } catch (error) {
-        console.log(error)
+        console.log("sign up:- ",error);
     }
 }
 
@@ -26,7 +25,7 @@ module.exports.create = async(req,res)=>{
             return res.redirect('back');
         }
     } catch (error) {
-        console.log(error);
+        console.log("creating employee:- ",error);
         return;
     }
 } 
@@ -36,7 +35,8 @@ module.exports.singIn =(req,res)=>{
     try {
         return res.render('sign_in');
     } catch (error) {
-        console.log(error)
+        console.log("sign in:- ",error)
+        return;
     }
 }
 
@@ -47,7 +47,7 @@ module.exports.createSession = (req,res)=>{
 
 // logout
 module.exports.destroySession = (req,res)=>{
-    req.logout((err)=>{});
+    req.logout(()=>{});
     return res.redirect('/');
 }
     

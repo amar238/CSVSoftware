@@ -1,3 +1,7 @@
 body{
-    background-color: aqua;
+    /* background-color: aqua; */
+}
+
+#header{
+    width: 100%;
 }

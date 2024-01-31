@@ -2,13 +2,8 @@ const path = require('path');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 
-
 const app = express();
-
 const port = 8000;
-
-
-
 
 const db = require('./config/mongoose');
 
@@ -19,11 +14,13 @@ const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo');
 const { required } = require('nodemon/lib/config');
 
+
+
+
 app.use(express.urlencoded({extended:true}));
 
 // Assets folder
 app.use(express.static('./assets'));
-
 
 //view engine
 app.set('view engine','ejs'); //use express view engine
@@ -33,7 +30,7 @@ app.use(expressLayouts);
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
-// *****Middleware*****
+// *****Custom Middleware*****
 app.use(session({
     name : 'CSV',
     // TO DO : change secret before devlopment////////////////////////////////////////////////////////////
