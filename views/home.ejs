@@ -1,0 +1,126 @@
+<div class="content">
+    
+    <div class="container mt-5">
+        <h2>Student Details</h2>
+        <table class=" table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>College</th>
+                    <th>Batch</th>
+                    <th>Status</th>
+                    <% if(locals.user){ %>
+                    <th>Action</th>
+                    <%}%>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(locals.user){ %>
+                <tr>
+                    <form action="/create" method="post">
+                        <td><input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required></td>
+                        <td><input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required></td>
+                        <td><input type="text" class="form-control" id="college" name="college" placeholder="Enter College" required></td>
+                        <td><select id="batch" name="batch">
+                            <% batches.forEach((option)=> { %>
+                                <option value="<%= option._id %>"><%= option.year %>-<%= option.month%></option>
+                            <% }); %>
+                        </select></td>
+                        <td><select name="status" id="status">
+                            <option value="Unplaced">Unplaced</option>
+                            <option value="Placed">Placed</option>
+                        </select></td>
+                        <td><button type="submit" class="btn btn-primary">Add Student</button></td>   
+                    </form>
+                </tr>
+                <%}%>
+                <% students.forEach((student)=>{ %>
+                <tr data-student='<%= JSON.stringify(student) %>'>
+                    <td contenteditable="false"><%= student.name %></td>
+                    <td contenteditable="false"><%= student.email %></td>
+                    <td contenteditable="false"><%= student.college %></td>
+                    <td contenteditable="false"><%= student.batch.year %> - <%= student.batch.month %></td>
+                    <td contenteditable="false"><%= student.status %></td>
+                    <% if(locals.user){ %>
+                    <td>
+                        <button class="btn btn-warning btn-sm edit-btn" onclick="editRow(this)">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" onclick="deleteRow(this)" data-student-id="<%= student._id %>">Delete</button>
+                        <button class="btn btn-success btn-sm update-btn" onclick="updateRow(this)" style="display:none;" data-student-id="<%= student._id %>">Update</button>
+                        <button class="btn btn-secondary btn-sm cancel-btn" onclick="cancelEdit(this)" style="display:none;">Cancel</button>
+                    </td>
+                    <%}%>
+                </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Edit row function which convert desired row editable
+function editRow(button,student) {
+    const row = button.closest('tr');
+    const buttons = row.querySelectorAll('button');
+    // Retrieve the student data from the data attribute
+    const studentData = JSON.parse(row.getAttribute('data-student'));
+    row.querySelectorAll('td:not(:last-child)').forEach((td, index) => {
+        //save original data in case for cancel update
+        td.setAttribute(`data-original-${index}`, td.innerHTML); 
+        const input = document.createElement('input');
+        input.value = td.innerText;
+        td.innerHTML = '';
+        td.appendChild(input);
+        // Dynamic fetching for select option 
+        // For the 4th column (index 3), replace the content with a select dropdown
+        if (index === 3) {
+            const select = document.createElement('select');
+            select.id = 'batch-'+studentData._id;
+            select.name = 'batch-'+studentData._id;
+            // Populate select options with batch data
+            <% batches.forEach((option) => { %>
+                const optionElement_<%= option._id %> = document.createElement('option');
+                optionElement_<%= option._id %>.value = '<%= option._id %>';
+                optionElement_<%= option._id %>.text = '<%= option.year %>-<%= option.month %>';
+                select.appendChild(optionElement_<%= option._id %>);
+                // Set the selected attribute if the value matches the existing value
+                if ('<%= option._id %>' ===  studentData.batch._id ) {
+                    optionElement_<%= option._id %>.selected = true;
+                }
+            <% }); %>
+            td.innerHTML = '';
+            td.appendChild(select);
+        }
+        // static allocation for select option
+        // For the 5th column (index 4), replace the content with a select dropdown
+        if (index === 4) {
+            const select = document.createElement('select');
+            select.id = 'status'+studentData._id;
+            select.name = 'status'+studentData._id;
+            const statuses = ['Placed', 'Unplaced']
+            // Populate select options with batch data
+            statuses.forEach((status) => { 
+                const optionElement = document.createElement('option');
+                optionElement.value = status;
+                optionElement.text = status;
+                select.appendChild(optionElement);
+                // Set the selected attribute if the value matches the existing value
+                if (studentData.status ===  status ) {
+                    optionElement.selected = true;
+                }
+            });
+            td.innerHTML = '';
+            td.appendChild(select);
+        }
+    });
+    //display update and cancel button
+    buttons[0].style.display = 'none';
+    buttons[1].style.display = 'none';
+    buttons[2].style.display = 'inline-block';
+    buttons[3].style.display = 'inline-block';
+}
+
+
+
+</script>
+<script src="/js/home.js"></script>

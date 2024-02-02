@@ -6,6 +6,11 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    email:{
+      type: String,
+      require: true,
+      unique: true,
+    },
     college: {
       type: String,
       required: true,
@@ -17,8 +22,8 @@ const studentSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["placed", "unplaced"],
-      default: "unplaced",
+      enum: ["Placed", "Unplaced"],
+      required: true
     },
   },
   {

@@ -18,7 +18,7 @@ const { required } = require('nodemon/lib/config');
 
 
 app.use(express.urlencoded({extended:true}));
-
+app.use(express.json());
 // Assets folder
 app.use(express.static('./assets'));
 

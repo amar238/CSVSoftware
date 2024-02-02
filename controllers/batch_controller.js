@@ -1,4 +1,5 @@
 const Batch = require('../models/batch');
+const customFunctions = require('../customFunctions');
 // to validate year
 const currentYear = new Date().getUTCFullYear();
 
@@ -6,19 +7,9 @@ module.exports.list = async(req,res) =>{
     try {
         let monthOptions= Batch.schema.path('month').enumValues;
         const batches = await Batch.find();
-        // function to sort batches
-        const sortBatches = (a, b) => {
-            if (a.year !== b.year) {
-              return a.year - b.year;
-            }
-            const monthsOrder = [
-              'January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            return monthsOrder.indexOf(a.month) - monthsOrder.indexOf(b.month);
-          };
+        
         // applying sortBatches function to data   
-          const sortedBatches = batches.slice().sort(sortBatches);
+          const sortedBatches = batches.slice().sort(customFunctions.sortBatches);
 
         return res.render('batch',{monthOptions,batches:sortedBatches});
     } catch (error) {   
