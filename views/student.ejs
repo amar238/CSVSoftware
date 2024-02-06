@@ -1,0 +1,15 @@
+
+<div style=" margin-left: 35vh; margin-top: 10vh; ">    
+<div class="col-md-8">
+    <form action="/course-scores/add-scores/<%=student._id%>" method="post">
+        <legend>Add Scores of different subjects</legend>
+        <label class="form-control">Name: <%= student.name %></label>
+        <label class="form-control">Email Id: <%= student.email %></label>
+        <label class="form-control">Batch: <%= student.batch.year %>-<%= student.batch.month %></label>
+        <input class="form-control mt-2" type="number" name="dsa" id="dsa" min="0" max="100" placeholder="Enter marks for DSA" required>
+        <input class="form-control mt-2" type="number" name="webD" id="webD" min="0" max="100" placeholder="Enter marks for Web Development" required>
+        <input class="form-control mt-2" type="number" name="react" id="react" min="0" max="100" placeholder="Enter marks for React" required><br>
+        <button type="submit" class="btn btn-primary">Add Scores</button>
+    </form>
+</div>
+</div>

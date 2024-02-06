@@ -37,7 +37,7 @@
                 <%}%>
                 <% students.forEach((student)=>{ %>
                 <tr data-student='<%= JSON.stringify(student) %>'>
-                    <td contenteditable="false"><%= student.name %></td>
+                    <td contenteditable="false"><a href="/course-scores/student/<%=student._id%>"><%= student.name %></a></td>
                     <td contenteditable="false"><%= student.email %></td>
                     <td contenteditable="false"><%= student.college %></td>
                     <td contenteditable="false"><%= student.batch.year %> - <%= student.batch.month %></td>
@@ -59,11 +59,12 @@
 
 <script>
 // Edit row function which convert desired row editable
-function editRow(button,student) {
+function editRow(button) {
     const row = button.closest('tr');
     const buttons = row.querySelectorAll('button');
     // Retrieve the student data from the data attribute
     const studentData = JSON.parse(row.getAttribute('data-student'));
+
     row.querySelectorAll('td:not(:last-child)').forEach((td, index) => {
         //save original data in case for cancel update
         td.setAttribute(`data-original-${index}`, td.innerHTML); 
@@ -94,14 +95,14 @@ function editRow(button,student) {
         // static allocation for select option
         // For the 5th column (index 4), replace the content with a select dropdown
         if (index === 4) {
-            const select = document.createElement('select');
+            const select = document.createElement('select'); 
             select.id = 'status'+studentData._id;
             select.name = 'status'+studentData._id;
             const statuses = ['Placed', 'Unplaced']
             // Populate select options with batch data
             statuses.forEach((status) => { 
                 const optionElement = document.createElement('option');
-                optionElement.value = status;
+                optionElement.value = status; 
                 optionElement.text = status;
                 select.appendChild(optionElement);
                 // Set the selected attribute if the value matches the existing value
@@ -113,11 +114,7 @@ function editRow(button,student) {
             td.appendChild(select);
         }
     });
-    //display update and cancel button
-    buttons[0].style.display = 'none';
-    buttons[1].style.display = 'none';
-    buttons[2].style.display = 'inline-block';
-    buttons[3].style.display = 'inline-block';
+    
 }
 
 

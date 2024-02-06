@@ -20,41 +20,42 @@
                 </div>
             </li>
             <!-- List of Batches -->
-            <% batches.forEach(batch => { %>
+            
+            <% batches.forEach(batch_details => { %>
                 <li class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span><%= batch.year %> - <%= batch.month %></span>
-                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#<%= batch.year %><%= batch.month %>">
+                        <span><%= batch_details.batch.year %> - <%= batch_details.batch.month %></span>
+                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#<%= batch_details.batch.year %><%= batch_details.batch.month %>">
                             Toggle
                         </button>
                     </div>
-                    <div class="collapse" id="<%= batch.year %><%= batch.month %>">
+                    <div class="collapse" id="<%= batch_details.batch.year %><%= batch_details.batch.month %>">
                         <ul class="list-group mt-2">
                             <!-- Update Batch Form -->
-                            <form action="/batch/update/<%= batch._id %>" method="post">
+                            <form action="/batch/update/<%=batch_details.batch._id %>" method="post">
                                 <!-- Include a hidden input for batch ID -->
-                                <input type="hidden" name="_id" value="<%= batch._id %>">                  
+                                <input type="hidden" name="_id" value="<%= batch_details.batch._id %>">                  
                                 <div class="mb-3">
                                 <label for="new-year" class="form-label">New Year:</label>
-                                <input type="text" id="new-year" name="year" class="form-control" value="<%= batch.year %>">
+                                <input type="text" id="new-year" name="year" class="form-control" value="<%= batch_details.batch.year %>">
                                 </div>
                     
                                 <div class="mb-3">
                                     <label for="new-month">Select Month:</label>
                                     <select id="new-month" name="month">
                                         <% monthOptions.forEach((option)=> { %>
-                                            <option value="<%= option %>"<%= option === batch.month ? 'selected' : '' %>><%= option %></option>
+                                            <option value="<%= option %>"<%= option === batch_details.batch.month ? 'selected' : '' %>><%= option %></option>
                                         <% }); %>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Batch</button>
 
-                                <button type="button" class="btn btn-danger" id="deleteBatchBtn" data-bs-toggle="modal" data-bs-target="#deleteBatchModal<%= batch._id %>">
+                                <button type="button" class="btn btn-danger" id="deleteBatchBtn" data-bs-toggle="modal" data-bs-target="#deleteBatchModal<%= batch_details.batch._id %>">
                                     Delete Batch
                                 </button>
                             </form>
 
-                            <div class="modal fade" id="deleteBatchModal<%= batch._id %>" tabindex="-1">
+                            <div class="modal fade" id="deleteBatchModal<%= batch_details.batch._id %>" tabindex="-1">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -66,20 +67,31 @@
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                      <a href="/batch/delete/<%= batch._id %>" class="btn btn-danger">Delete</a>
+                                      <a href="/batch/delete/<%= batch_details.batch._id %>" class="btn btn-danger">Delete</a>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             <br>
-                            <li class="list-group-item">Child Item 1</li>
-                            <li class="list-group-item">Child Item 2</li>
+                            <table class="table">
+                                <thead><th>Name</th><th>Email</th><th>College</th><th>Status</th></thead>
+                                <tbody>
+                                    <% batch_details.students.forEach((student)=>{ %>
+                                        <tr data-student='<%= JSON.stringify(student) %>'>
+                                            <td contenteditable="false"><%= student.name %></td>
+                                            <td contenteditable="false"><%= student.email %></td>
+                                            <td contenteditable="false"><%= student.college %></td>
+                                            <td contenteditable="false"><%= student.status %></td>
+                                        </tr>
+                                    <%})%>
+                                </tbody>
+                            </table>
                             <!-- Add more child items as needed -->
                         </ul>
                     </div>
                 </li>
                 
-            <% }); %>  
+            <% }); %>   
         </ul>
       </div>
 </div>

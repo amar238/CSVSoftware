@@ -1,17 +1,27 @@
 const Batch = require('../models/batch');
+const Student = require('../models/student');
 const customFunctions = require('../customFunctions');
 // to validate year
 const currentYear = new Date().getUTCFullYear();
 
+// list of batches along with students details belonging to that batch 
 module.exports.list = async(req,res) =>{
     try {
         let monthOptions= Batch.schema.path('month').enumValues;
-        const batches = await Batch.find();
-        
-        // applying sortBatches function to data   
-          const sortedBatches = batches.slice().sort(customFunctions.sortBatches);
-
-        return res.render('batch',{monthOptions,batches:sortedBatches});
+        let batches = await Batch.find();
+        const batchwise_student_list = []
+        //sort batches and reverse it for displaying recent batches
+        batches = (batches.slice().sort(customFunctions.sortBatches)).reverse();
+        let batch_students_list;
+        for(let i in batches){
+            const students = await Student.find({ batch: batches[i]._id });
+            batch_students_list = {
+                batch : batches[i],
+                students : students
+            }
+            batchwise_student_list.push(batch_students_list);
+        }
+        return res.render('batch',{monthOptions,batches:batchwise_student_list});
     } catch (error) {   
         console.log("batch list:- ", error);
         return;
@@ -61,8 +71,15 @@ module.exports.update = async(req,res)=>{
 
 module.exports.delete = async(req,res)=>{
     try {
-        const batch = await Batch.findByIdAndDelete(req.params.id);
-        return res.redirect('back');
+        let batch;
+        if((await Student.find({batch:req.params.id})).length == 0 ){
+            batch= await Batch.deleteOne({_id:req.params.id});
+            return res.redirect('back'); 
+        }else{
+            console.log("Batch consist of students");
+            return res.redirect('back');
+        }
+        
     } catch (error) {
         console.log("Deleting batch:- ",error);
     }

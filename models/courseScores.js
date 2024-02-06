@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const courseScoresSchema = new mongoose.Schema(
   {
-    name: {
+    student: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
+      ref: 'Student',
       required: true,
     },
     dsa: {
@@ -12,18 +12,21 @@ const courseScoresSchema = new mongoose.Schema(
       min: 0,
       max: 100,
       required: true,
+      default:0
     },
     webD: {
       type: Number,
       min: 0,
       max: 100,
       required: true,
+      default:0
     },
     react: {
       type: Number,
       min: 0,
       max: 100,
       required: true,
+      default:0
     },
   },
   {

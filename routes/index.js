@@ -11,4 +11,5 @@ router.delete('/delete/:id',passport.checkAuthentication,homeController.delete);
 // routes to employee,batch
 router.use('/emp',require('./employee_routes'));
 router.use('/batch',require('./batch_routes'));
+router.use('/course-scores',require('./course_scores_routes'));
 module.exports = router;

@@ -1,6 +1,9 @@
 body{
     /* background-color: aqua; */
 }
+.content{
+    margin-bottom: 8vh;
+}
 
 #header{
     width: 100%;
