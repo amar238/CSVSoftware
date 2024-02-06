@@ -6,6 +6,10 @@ const companySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    pos: {
+      type: String,
+      required: true,
+    },
     interview_date: {
       type: Date,
       required: true,
