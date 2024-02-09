@@ -25,7 +25,7 @@ const companySchema = new mongoose.Schema(
   }
 );
 
-// combinelly for company name and position checks unique constraints
+// combinelly for company name and position checks unique
 companySchema.index({ name: 1 },{pos:1},{ unique: true });
 const Company = mongoose.model("Company", companySchema);
 module.exports = Company;

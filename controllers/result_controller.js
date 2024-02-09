@@ -10,6 +10,7 @@ module.exports.interviews = async(req,res)=>{
     try {
         var results = await Result.find();
         var interviews = await Interview.find().populate({path:'students',populate:{path:'batch'}});
+        console.log(results);
         // cobmbine interview data with students appearing and their results
         for(interview_index in interviews){    
             var resultArray = [];
@@ -48,6 +49,7 @@ module.exports.interviews = async(req,res)=>{
                 students:resultArray
             }
         }
+        // console.log(interviews[3].students)
         return res.render('results',{interviews});
     } catch (error) {
         console.log("Fetching Interview List:- ",error);

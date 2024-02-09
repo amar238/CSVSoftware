@@ -59,11 +59,17 @@ module.exports.stats = async(req,res)=>{
 // update course scores
 module.exports.update =async(req,res)=>{
     try {
-        const stats = await CourseScore.findByIdAndUpdate(req.params.id,req.body,{new:true});
+        var stats;
+        console.log(req.body)
+        if(req.body.dsa ==='' || req.body.webD==='' || req.body.react === '' ||parseInt(req.body.dsa)<0 || parseInt(req.body.webD)<0  ||parseInt(req.body.react)<0 ||parseInt(req.body.dsa)>100 || parseInt(req.body.webD)>100  ||parseInt(req.body.react)>100 ){
+            return res.redirect('back');
+        }else{
+            stats = await CourseScore.findByIdAndUpdate(req.params.id,req.body,{new:true});
+        }
         if (!stats) {
             return res.status(404).json({ success: false, message: 'Stats not found' });
           }
-          res.json({ success: true, message: 'Stats updated successfully', stats });
+          res.status(200).json({ success: true, message: 'Stats updated successfully', stats });
     } catch (error) {
         console.error('Error updating student:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });

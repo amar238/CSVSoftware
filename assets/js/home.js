@@ -23,13 +23,35 @@ function updateRow(button) {
     // Retrieve the student data from the data attribute
     const studentData = JSON.parse(row.getAttribute('data-student'));
     // Gather updated data from input fields and select dropdowns
-    const updatedData = {
-        name: row.querySelector('td:nth-child(1) input').value,
-        email: row.querySelector('td:nth-child(2) input').value,
-        college: row.querySelector('td:nth-child(3) input').value,
-        batch: row.querySelector(`#batch-${studentData._id}`).value,
-        status: row.querySelector(`#status${studentData._id}`).value
+    const nameInput = row.querySelector('td:nth-child(1) input');
+    const emailInput = row.querySelector('td:nth-child(2) input');
+    const collegeInput = row.querySelector('td:nth-child(3) input');
+    const batchInput = row.querySelector(`#batch-${studentData._id}`);
+    const statusInput = row.querySelector(`#status${studentData._id}`);
+
+    function isAlphabetic(input) {
+        return /^[a-zA-Z]+$/.test(input);
+    }
+    // Check if any input field is empty
+    if (nameInput.value === '' || 
+        emailInput.value === '' || 
+        collegeInput.value === '' || 
+        !isAlphabetic(nameInput.value) || 
+        !isAlphabetic(collegeInput.value)) 
+    {
+        alert('Please fill in all fields and check Name and college consist of alphabets only before updating.');
+        return; // Abort the update process
+    }
+
+     // Continue with the update process if all input fields are filled
+     const updatedData = {
+        name: nameInput.value,
+        email: emailInput.value,
+        college: collegeInput.value,
+        batch: batchInput.value,
+        status: statusInput.value
     };
+
     // Send an asynchronous request to update the student's information
     fetch(`/update/${studentData._id}`, {
         method: 'PUT',

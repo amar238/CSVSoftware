@@ -42,6 +42,13 @@ function cancelEditStats(button) {
 }
 
 function updateRowStats(button) {
+    const allInputs = document.querySelectorAll('input');
+    for (const input of allInputs) {
+        if (input.value === '' || input.value < 0 || input.value >100) {
+            alert('Cannot accept empty fields or negative values or value more than 100');
+            return; // Abort the update process
+        }
+    }
     // Get the parent row
     const row = button.closest('tr');
     // Retrieve the stats id from the data attribute
@@ -72,13 +79,10 @@ function updateRowStats(button) {
             row.querySelector('.delete-btn').style.display = 'inline-block';
             row.querySelector('.update-btn').style.display = 'none';
             row.querySelector('.cancel-btn').style.display = 'none';
-        } else {
-            // Handle the case where the update was not successful
-            alert('Update failed. Please try again.');
         }
     })
     .catch(error => {
-        console.error('Error updating course scores data:', error);
+        console.log('Error updating course scores data:', error);
     });
 }
 

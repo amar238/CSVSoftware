@@ -38,7 +38,14 @@ module.exports.create = async(req,res)=>{
 // update student
 module.exports.update= async(req,res)=>{
     try {
-        const student = await Student.findByIdAndUpdate(req.params.id,req.body,{new:true}).populate('batch');
+        var student;
+        console.log(req.body)
+        if(req.body.name === "" || req.body.email === "" || req.body.college == ""){
+            console.log("cannot accepts empty fiels");
+            return res.redirect('back');
+        }else{
+            student = await Student.findByIdAndUpdate(req.params.id,req.body,{new:true}).populate('batch');
+        }
         if (!student) {
             return res.status(404).json({ success: false, message: 'Student not found' });
           }

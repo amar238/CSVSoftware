@@ -31,10 +31,10 @@ module.exports.list = async(req,res) =>{
 // create batch
 module.exports.create = async(req,res)=>{
     try {
-        console.log(new Date().getFullYear() + 1 );
         const batch = await Batch.findOne({year: req.body.year , month: req.body.month});
+        console.log(currentYear);
         // validate current year and existing batch
-        if(!batch && req.body.year <= currentYear){
+        if(!batch && req.body.year <= currentYear && req.body.year >=2020){
             await Batch.create(req.body);
             return res.redirect('/batch/list');  
         }else{
