@@ -42,7 +42,8 @@ function updateRow(button) {
     .then(data => {
         // on success update data in row in table
         if (data.success) {
-            row.querySelector('td:nth-child(1)').innerText = data.student.name;
+            var updatedLink = "/course-scores/student/" + studentData._id;
+            row.querySelector('td:nth-child(1)').innerHTML =  '<a href="' + updatedLink + '">' + data.student.name + '</a>';
             row.querySelector('td:nth-child(2)').innerText = data.student.email;
             row.querySelector('td:nth-child(3)').innerText = data.student.college;
             row.querySelector('td:nth-child(4)').innerText = data.student.batch.year + ' - ' + data.student.batch.month;

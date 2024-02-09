@@ -1,7 +1,8 @@
 <div class="content">
     
     <div class="container mt-5">
-        <h2>Student Details</h2>
+        <h2 class="text-center">Student Details</h2>
+        <h6 class="text-center">Click on Student Name to Add Course Scores! Deleting student will be result in removing Course Scores, Results as well as eliminitation from scheduled All Interviews!</h6>
         <table class=" table">
             <thead>
                 <tr>
@@ -64,7 +65,7 @@ function editRow(button) {
     const buttons = row.querySelectorAll('button');
     // Retrieve the student data from the data attribute
     const studentData = JSON.parse(row.getAttribute('data-student'));
-
+    
     row.querySelectorAll('td:not(:last-child)').forEach((td, index) => {
         //save original data in case for cancel update
         td.setAttribute(`data-original-${index}`, td.innerHTML); 
@@ -114,7 +115,11 @@ function editRow(button) {
             td.appendChild(select);
         }
     });
-    
+    //display update and cancel button
+    buttons[0].style.display = 'none';
+    buttons[1].style.display = 'none';
+    buttons[2].style.display = 'inline-block';
+    buttons[3].style.display = 'inline-block';
 }
 
 

@@ -1,5 +1,4 @@
 #header-bar{
-    
     display: flex;
     flex-direction: row;
     background-color: #333;
@@ -28,8 +27,6 @@
 .menu li{
     margin-left: 20px;
 }
-
-
 
 #user-bar{ 
     margin-left: auto;

@@ -1,0 +1,44 @@
+<div class="content">
+    <div class="container">
+    <h2 class="text-center"><%=interview.name%> - <%=interview.pos%></h2>
+    <h4 id="count" data-count="<%=interview.students.length%>" class="text-left">Count of Scheduled interviews: <%=interview.students.length%></h4>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <legend class="text-left">Date:<%=interview.interview_date.toISOString().split('T')[0]%></legend>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Batch</th>
+            <th>DSA</th>
+            <th>WebD</th>
+            <th>React</th>
+            <th>Allocate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Add rows of data here -->
+          <% students.forEach((student)=>{%>
+          <tr >
+            <td><%=student.student.name %></td>
+            <td><%=student.student.email %></td>
+            <td><%=student.student.batch.year%>-<%=student.student.batch.month%></td>
+            <td><%=student.dsa%></td>
+            <td><%=student.webD%></td>
+            <td><%=student.react%></td>
+            <td><form id="allocateForm<%= student.student._id %>" action="/interview/allocate-interview/<%=interview._id%>" method="post">
+                <input name="student" value="<%=student.student._id%>" type="text"  hidden>
+                <button class="allocate-btn  btn btn-primary " data-student-id="<%= student.student._id%>" type="submit" >Allocate</button>
+            </form></td>
+          </tr>
+            <%})%>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+</div>
+  </div>
+
+
+  
+  <script src="/js/allocate_interview.js"></script>

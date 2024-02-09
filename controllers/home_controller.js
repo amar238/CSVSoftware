@@ -1,5 +1,8 @@
 const Student =  require('../models/student');
 const Batch = require('../models/batch');
+const CourseScore= require('../models/courseScores');
+const Interview = require('../models/company');
+const Result = require('../models/result');
 const customFunctions = require('../customFunctions');
 
 // student_list 
@@ -50,10 +53,13 @@ module.exports.update= async(req,res)=>{
 module.exports.delete = async(req,res)=>{
     try {
         const student = await Student.deleteOne({_id:req.params.id});
+        await CourseScore.deleteOne({student:req.params.id});
+        await Interview.updateMany({$pull:{students:req.params.id}});
+        await Result.deleteOne({student:req.params.id});
         if (!student) {
             return res.status(404).json({ success: false, message: 'Student not found' });
         }
-          res.json({ success: true, message: 'Student deleted successfully', student });
+          res.json({ success: true, message: 'All Student data from database deleted successfully', student });
     } catch (error) {
         console.error('Error deleting student:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });

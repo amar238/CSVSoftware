@@ -1,5 +1,8 @@
 const Student =  require('../models/student');
 const CourseScore = require('../models/courseScores');
+const Batch = require('../models/batch');
+const Interview = require('../models/company');
+const Result = require('../models/result');
 const customFunctions = require('../customFunctions');
 
 
@@ -67,11 +70,16 @@ module.exports.update =async(req,res)=>{
 
 module.exports.delete = async(req,res)=>{
     try {
-        const stats = await CourseScore.deleteOne({_id:req.params.id});
+        const stats = await CourseScore.findOne({_id:req.params.id});
+        student = await Student.findById(stats.student);
+        await Interview.updateMany({$pull:{students:stats.student}});
+        await Result.deleteOne({student:stats.student});
+        await CourseScore.deleteOne({_id:req.params.id});
         if (!stats) {
-            return res.status(404).json({ success: false, message: 'Stats not found' });
-          }
-          res.json({ success: true, message: 'Stats deleted successfully', stats });
+                return res.status(404).json({ success: false, message: 'Stats not found' });
+            }
+            //  returns student id of whose course scores has been deleted 
+            res.json({ success: true, message: 'Stats deleted successfully along with student info from Interview and Result', student });
     } catch (error) {
         console.error('Error deleting stats:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });

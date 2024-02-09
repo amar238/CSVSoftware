@@ -1,0 +1,64 @@
+
+<div class="content">
+  <div class="container mt-4">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="form-container">
+          <legend>Add Interview</legend>
+          <% if(locals.user){ %>
+            <form action="/interview/create" method="post">
+              <div class="row">
+                <div class="col"><input type="text" class="form-control mt-2" id="name" name="name"
+                    placeholder="Company name" required></div>
+                <div class="col"><input type="text" class="form-control mt-2" id="text" name="pos"
+                    placeholder="Position" required></div>
+                <div class="col"><input type="date" class="form-control mt-2" id="date" name="interview_date"
+                    placeholder="Interview Date" required></div>
+                <div class="col"><button type="submit" class="btn btn-primary mt-2">Add Interview</button></div>
+              </div>
+            </form>
+            <%}%>
+        </div>
+      </li>
+      <h4 class="text-center mt-3 mb-2">List of Interviews and Candidates</h4>
+      <span class="text-center">Click on name of the company to allocate candidates! Click on Toggle button to see candidates appearing for the Interview!</span>
+      <% interviews.forEach((interview)=>{ %>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col">Company: <a href="/interview/allocate-interview/<%=interview._id%>">
+                <%= interview.name %>
+              </a></div>
+            <div class="col">Position: <%= interview.pos %>
+            </div>
+            <div class="col">Date: <%= interview.interview_date.toISOString().split('T')[0] %>
+            </div>
+            <div class="col"><button class="btn btn-primary toggle-btn" type="button" data-bs-toggle="collapse"
+                data-bs-target="#candidate<%=interview._id%>">
+                Toggle
+              </button></div>
+          </div>
+          <!-- Table inside Collapse -->
+          <div class="collapse" id="candidate<%=interview._id%>">
+            <table class="table table-bordered mt-3">
+              <thead>
+                <tr><th>Name</th><th>Email</th><th>Batch</th><th>DSA</th><th>WebD</th><th>React</th></tr>
+              </thead>
+              <% interview.students.forEach(student_info=>{%>
+                <tbody>
+                  <tr>
+                    <td><%= student_info.student.name %></td>
+                    <td><%= student_info.student.email %></td>
+                    <td><%= student_info.student.batch.year %>-<%= student_info.student.batch.month %></td>
+                    <td><%= student_info.scores.dsa%></td>
+                    <td><%= student_info.scores.webD%></td>
+                    <td><%= student_info.scores.react%></td>
+                  </tr>
+                </tbody>
+                <%}) %>
+            </table>
+          </div>
+        </li>
+        <%})%>
+    </ul>
+  </div>
+</div>

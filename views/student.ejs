@@ -2,7 +2,8 @@
 <div style=" margin-left: 35vh; margin-top: 10vh; ">    
 <div class="col-md-8">
     <form action="/course-scores/add-scores/<%=student._id%>" method="post">
-        <legend>Add Scores of different subjects</legend>
+        <legend class="text-center">Add Scores of different Course Subjects</legend>
+        <h6 class="text-center">In case you get redirected to same page scores are already added! Go to Course Scores Stats from menu!</h6>
         <label class="form-control">Name: <%= student.name %></label>
         <label class="form-control">Email Id: <%= student.email %></label>
         <label class="form-control">Batch: <%= student.batch.year %>-<%= student.batch.month %></label>
