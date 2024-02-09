@@ -19,6 +19,7 @@ module.exports.studentPage = async(req,res)=>{
     }
 }
 
+// add course scores
 module.exports.addScores = async(req,res)=>{
     try {
         studentScores = await CourseScore.find({student:req.params.id});
@@ -39,7 +40,7 @@ module.exports.addScores = async(req,res)=>{
         return;
     }
 }
-
+//  display course stats
 module.exports.stats = async(req,res)=>{
     try {
         studentsStats = await CourseScore.find().populate({
@@ -55,6 +56,7 @@ module.exports.stats = async(req,res)=>{
     }
 }
 
+// update course scores
 module.exports.update =async(req,res)=>{
     try {
         const stats = await CourseScore.findByIdAndUpdate(req.params.id,req.body,{new:true});
@@ -68,6 +70,7 @@ module.exports.update =async(req,res)=>{
     }
 }
 
+//  delete course scores and dependency with it
 module.exports.delete = async(req,res)=>{
     try {
         const stats = await CourseScore.findOne({_id:req.params.id});

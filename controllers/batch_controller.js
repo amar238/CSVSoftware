@@ -28,8 +28,10 @@ module.exports.list = async(req,res) =>{
     }
 }
 
+// create batch
 module.exports.create = async(req,res)=>{
     try {
+        console.log(new Date().getFullYear() + 1 );
         const batch = await Batch.findOne({year: req.body.year , month: req.body.month});
         // validate current year and existing batch
         if(!batch && req.body.year <= currentYear){
@@ -45,6 +47,7 @@ module.exports.create = async(req,res)=>{
     }
 }  
 
+// update batch
 module.exports.update = async(req,res)=>{
     try {
         const existingBAtch = await Batch.findOne({year:req.body.year, month:req.body.month});
@@ -69,6 +72,7 @@ module.exports.update = async(req,res)=>{
     }
 }
 
+// delete batch only if it doesnt have students
 module.exports.delete = async(req,res)=>{
     try {
         let batch;

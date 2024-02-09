@@ -1,0 +1,34 @@
+<div class="content">
+    <div class="container mt-4">
+        <h3 class="text-center mb-4">List of Candidates</h3>
+        <table class="table table-bordered" data-interview="<%= interview._id %>">
+            <thead>
+                <tr>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Batch</th>
+                    <th class="text-center">Result</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% resultArray.forEach(candidate=>{%>
+                <tr data-candidate="<%=candidate._id%>">
+                    <td class="text-center"><%= candidate.name %></a></td>
+                    <td class="text-center"><%= candidate.email %></td>
+                    <td class="text-center"><%= candidate.batch.year %>-<%= candidate.batch.month %></td>
+                    <td class="text-center">
+                        <select id="result" name="result<%=candidate._id%>">
+                            <% resultOptions.forEach((option)=> { %>
+                                <option value="<%= option %>"><%= option %></option>
+                            <% }); %>
+                    </select></td>
+                    <td><button type="button" class="btn btn-primary">Add Result</button></td>
+                </tr>
+                <%}) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/add_result.js"></script>

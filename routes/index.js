@@ -13,4 +13,5 @@ router.use('/emp',require('./employee_routes'));
 router.use('/batch',require('./batch_routes'));
 router.use('/course-scores',require('./course_scores_routes'));
 router.use('/interview',require('./interview_routes'));
+router.use('/result',require('./result_routes'));
 module.exports = router;

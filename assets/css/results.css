@@ -1,0 +1,17 @@
+.hidden-row {
+    display: none;
+
+}
+.inner-table {
+    width: 100%;
+    border-collapse: collapse;
+    transition: height 0.5s ease;
+}
+.inner-table td{
+    padding: 1vh;
+}
+td.td-inner-table{
+    padding: 0;
+    padding-bottom: 1vh;
+
+}

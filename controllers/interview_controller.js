@@ -60,7 +60,7 @@ module.exports.create = async(req,res)=>{
     }
 }
 
-
+// delete interview with its dependency
 module.exports.delete = async(req,res)=>{
     try {
         const interview = await Company.deleteOne({_id:req.params.id});

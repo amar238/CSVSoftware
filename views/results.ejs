@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/css/results.css">
+<div class="content">
+    <div class="container mt-4">
+        <h3 class="text-center mb-4">List of Interviews</h3>
+        <h6 class="text-center mb-4">Click on the company name to Update Results! Click on toggle button to see current Results!</h6>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">Company</th>
+                    <th class="text-center">Position</th>
+                    <th class="text-center">Interview Date</th>
+                    <th class="text-center">No. of Appearing Candidates</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% interviews.forEach(interview =>{%>
+                    <tr>
+                        <td class="text-center"> <a href="/result/interview/<%=interview._id%>" class="text-decoration-none text-primary"><%= interview.name %></a></td>
+                        <td class="text-center"><%= interview.pos %></td>
+                        <td class="text-center"><%= interview.interview_date.toISOString().split('T')[0] %></td>
+                        <td class="text-center"><%= interview.students.length %></td>
+                        <td><button onclick="toggleDetails(this)" class="btn btn-primary">Toggle</button></td>
+                    </tr>
+                    <tr class="hidden-row">
+                        <td class="td-inner-table" colspan="5">
+                            <table class="inner-table">
+                                <h4 class="text-center">Results</h4>
+                                <tr>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Batch</th>
+                                    <th class="text-center">Result</th>
+                                </tr>
+                                <% interview.students.forEach(student=>{%>
+                                <tr>
+                                    <td class="text-center"><%=student.student.name%></td>
+                                    <td class="text-center"><%=student.student.email%></td>
+                                    <td class="text-center"><%=student.student.batch.year%>-<%=student.student.batch.month%></td>
+                                    <% if(student.result === "pending"){%>
+                                        <td class="text-center"><%=student.result%></td>
+                                    <%}else{%>
+                                    <td class="text-center"><%=student.result.result%></td>
+                                    <%} %>
+                                </tr>
+                                <%}) %>
+                            </table>
+                        </td>
+                    </tr>
+                <%}) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/results.js"></script>

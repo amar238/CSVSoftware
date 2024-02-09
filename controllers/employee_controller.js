@@ -20,7 +20,7 @@ module.exports.create = async(req,res)=>{
 
         if(!emp){
             await Emp.create(req.body);
-            return res.redirect('/');  // To be change later
+            return res.redirect('/emp/sign-in');  // To be change later
         }else{
             return res.redirect('back');
         }

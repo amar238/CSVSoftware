@@ -17,8 +17,7 @@ const companySchema = new mongoose.Schema(
     students:[
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref : 'Student',
-          unique: true
+          ref : 'Student'
         }]
   },
   {
@@ -26,6 +25,7 @@ const companySchema = new mongoose.Schema(
   }
 );
 
+// combinelly for company name and position checks unique constraints
 companySchema.index({ name: 1 },{pos:1},{ unique: true });
 const Company = mongoose.model("Company", companySchema);
 module.exports = Company;

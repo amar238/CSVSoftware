@@ -23,5 +23,7 @@ const resultSchema = new mongoose.Schema(
   }
 );
 
+// combinelly for company and candidate checks unique constraints
+resultSchema.index({ company: 1 },{student:1},{ unique: true });
 const Result = mongoose.model("Result", resultSchema);
 module.exports = Result;
