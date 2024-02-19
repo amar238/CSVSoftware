@@ -3,7 +3,7 @@
     <div class="container mt-5">
         <h2 class="text-center">Student Details</h2>
         <h6 class="text-center">Click on Student Name to Add Course Scores! Deleting student will be result in removing Course Scores, Results as well as eliminitation from scheduled All Interviews!</h6>
-        <table class=" table">
+        <table class="table table-responsive">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -20,9 +20,9 @@
                 <% if(locals.user){ %>
                 <tr>
                     <form action="/create" method="post">
-                        <td><input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required></td>
+                        <td><input type="text" class="form-control" id="name" pattern="[A-Za-z ]+" name="name" placeholder="Enter name" required></td>
                         <td><input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required></td>
-                        <td><input type="text" class="form-control" id="college" name="college" placeholder="Enter College" required></td>
+                        <td><input type="text" class="form-control" id="college" pattern="[A-Za-z ]+" name="college" placeholder="Enter College" required></td>
                         <td><select id="batch" name="batch">
                             <% batches.forEach((option)=> { %>
                                 <option value="<%= option._id %>"><%= option.year %>-<%= option.month%></option>
@@ -71,6 +71,7 @@ function editRow(button) {
         td.setAttribute(`data-original-${index}`, td.innerHTML); 
         const input = document.createElement('input');
         input.value = td.innerText;
+        input.className = 'form-control';
         td.innerHTML = '';
         td.appendChild(input);
         // Dynamic fetching for select option 

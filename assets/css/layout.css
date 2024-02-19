@@ -1,8 +1,11 @@
 .content{
-    margin-top: 7vh;
+    margin-top: 15vh;
     margin-bottom: 8vh;
 }
 
 #header{
     width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
 }

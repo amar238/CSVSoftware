@@ -1,9 +1,10 @@
+
 <link rel="stylesheet" href="/css/results.css">
 <div class="content">
     <div class="container mt-4">
         <h3 class="text-center mb-4">List of Interviews</h3>
         <h6 class="text-center mb-4">Click on the company name to Update Results! Click on toggle button to see current Results!</h6>
-        <table class="table table-bordered">
+        <table class="table table-bordered thead-light table-striped">
             <thead>
                 <tr>
                     <th class="text-center">Company</th>
@@ -36,11 +37,7 @@
                                     <td class="text-center"><%=student.student.name%></td>
                                     <td class="text-center"><%=student.student.email%></td>
                                     <td class="text-center"><%=student.student.batch.year%>-<%=student.student.batch.month%></td>
-                                    <% if(student.result === "pending"){%>
-                                        <td class="text-center"><%=student.result%></td>
-                                    <%}else{%>
                                     <td class="text-center"><%=student.result.result%></td>
-                                    <%} %>
                                 </tr>
                                 <%}) %>
                             </table>

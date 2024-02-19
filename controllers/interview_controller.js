@@ -47,7 +47,6 @@ module.exports.create = async(req,res)=>{
     try {
         const interview = await Company.findOne({name:req.body.name, pos:req.body.pos});
         if(!interview){
-            console.log(req.body);
             const interview = await Company.create(req.body);
             return res.redirect('back'); 
         }else{
@@ -100,6 +99,10 @@ module.exports.allocateStudent = async(req,res)=>{
         const interview = await Company.findById(req.params.id);
         interview.students.push(req.body.studentId);
         interview.save();
+        await Result.create({
+            student: req.body.studentId,
+            company: req.params.id,
+        });
         res.json({ success: true, message: 'Student updated successfully' });
     } catch (error) {
         console.error('Error allocating interview:', error);

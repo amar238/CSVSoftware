@@ -2,7 +2,7 @@ const Batch = require('../models/batch');
 const Student = require('../models/student');
 const customFunctions = require('../customFunctions');
 // to validate year
-const currentYear = new Date().getUTCFullYear();
+const currentYear = new Date().getUTCFullYear() + 1;
 
 // list of batches along with students details belonging to that batch 
 module.exports.list = async(req,res) =>{
@@ -32,7 +32,6 @@ module.exports.list = async(req,res) =>{
 module.exports.create = async(req,res)=>{
     try {
         const batch = await Batch.findOne({year: req.body.year , month: req.body.month});
-        console.log(currentYear);
         // validate current year and existing batch
         if(!batch && req.body.year <= currentYear && req.body.year >=2020){
             await Batch.create(req.body);

@@ -1,20 +1,14 @@
 const path = require('path');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-
 const app = express();
 const port = 8000;
-
 const db = require('./config/mongoose');
-
 // for session cookie
 const session = require('express-session');
 const passport = require("passport");
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo');
-const { required } = require('nodemon/lib/config');
-
-
 
 
 app.use(express.urlencoded({extended:true}));

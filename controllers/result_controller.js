@@ -1,8 +1,5 @@
 const Interview = require('../models/company');
-const Student = require('../models/student');
-const CourseScore = require('../models/courseScores');
 const Result = require('../models/result');
-
 const resultOptions= Result.schema.path('result').enumValues;
 
 // fetch interview data along with student eligible to appear for interview
@@ -10,35 +7,28 @@ module.exports.interviews = async(req,res)=>{
     try {
         var results = await Result.find();
         var interviews = await Interview.find().populate({path:'students',populate:{path:'batch'}});
-        console.log(results);
         // cobmbine interview data with students appearing and their results
         for(interview_index in interviews){    
             var resultArray = [];
             for(student_index in interviews[interview_index].students){
                 var resultObject = {};
-                let removedResult;
-                // find corresponding result and remove it too increase efficiency
-                results = results.filter(result => {
-                    if (result.student.toString() === interviews[interview_index].students[student_index]._id.toString()) {
-                       
-                        removedResult = result;
-                        return false; // Exclude the element from the new array
+                let removedResult = {};
+                // find corresponding result with realtion with interview / company _id and student id with result 
+                for (let i = 0;  i < results.length; i++) {
+                    const stdResult = results[i];
+                    if (stdResult.student.toString() === interviews[interview_index].students[student_index]._id.toString() 
+                        && stdResult.company.toString() === interviews[interview_index]._id.toString())
+                    {    
+                        removedResult = stdResult;
+                        break;
                     }
-                    return true; // Include all other elements in the new array
-                });
-                if(removedResult === undefined){
-                    resultObject={
-                        result : "pending",
-                        student : interviews[interview_index].students[student_index]
-                    };
-                    resultArray.push(resultObject);
-                }else{
+                }
+                // add other results
                     resultObject={
                         result : removedResult,
                         student : interviews[interview_index].students[student_index]
                     };
                     resultArray.push(resultObject);
-                }
             }
             // replace students_id array appearing for interview with student details and corresponding results 
             interviews[interview_index] = {
@@ -49,8 +39,8 @@ module.exports.interviews = async(req,res)=>{
                 students:resultArray
             }
         }
-        // console.log(interviews[3].students)
-        return res.render('results',{interviews});
+        interviews = interviews.reverse();
+        return res.render('results',{interviews:interviews});
     } catch (error) {
         console.log("Fetching Interview List:- ",error);
         return;
@@ -61,13 +51,14 @@ module.exports.interviews = async(req,res)=>{
 module.exports.result = async(req,res)=>{
     try {
         const interview = await Interview.findById(req.params.id).populate({path:'students',populate:{path:'batch'}});
-        const results = await Result.find({company:interview._id});
+        const results = await Result.find({company:interview._id, result:"Pending"});
         var resultArray = [];
         for(student_index in interview.students){
             var result = results.find(result=>result.student.toString()=== interview.students[student_index]._id.toString());
-            if(result === undefined){
-                resultArray.push(interview.students[student_index]);
+            if(!result || result.result != 'Pending'){//to change undefined
+                interview.students = interview.students.filter(student => student._id !== result.student.toString());
             }
+            resultArray.push(interview.students[student_index]);
         }       
         return res.render('result',{interview,resultArray,resultOptions});        
     } catch (error) {
@@ -79,9 +70,10 @@ module.exports.result = async(req,res)=>{
 module.exports.addResult = async(req,res)=>{
     try {
         if(req.body){
-            await Result.create({
+            await Result.findOneAndUpdate({
                 student: req.body.candidateId,
                 company: req.body.interviewId,
+            },{
                 result: req.body.result
             });
         }

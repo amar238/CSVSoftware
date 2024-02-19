@@ -12,7 +12,7 @@ module.exports.singUp = async(req,res)=>{
 // creating employee
 module.exports.create = async(req,res)=>{
     try {
-        
+        // validation required
         if(req.body.password!= req.body.password1){
             return res.redirect('back');
         }

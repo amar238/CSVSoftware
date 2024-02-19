@@ -9,9 +9,9 @@
             <form action="/interview/create" method="post">
               <div class="row">
                 <div class="col"><input type="text" class="form-control mt-2" id="name" name="name"
-                    placeholder="Company name" required></div>
+                    placeholder="Company name" pattern="[A-Za-z1-9 ]+" required></div>
                 <div class="col"><input type="text" class="form-control mt-2" id="text" name="pos"
-                    placeholder="Position" required></div>
+                    placeholder="Position" pattern="[A-Za-z ]+" required></div>
                 <div class="col"><input type="date" class="form-control mt-2" id="date" name="interview_date"
                     placeholder="Interview Date" required></div>
                 <div class="col"><button type="submit" class="btn btn-primary mt-2">Add Interview</button></div>

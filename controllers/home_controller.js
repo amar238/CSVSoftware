@@ -20,7 +20,16 @@ module.exports.home = async(req,res)=>{
 // add student
 module.exports.create = async(req,res)=>{
     try {
-        const student = await Student.findOne({email: req.body.email});
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var validatedEmail;
+        var student; 
+        if(emailPattern.test(req.body.email)){
+            validatedEmail = emailPattern.test(req.body.email);
+            student = await Student.findOne({email: validatedEmail});
+        }else{
+            console.log("Error in validating email");
+             return res.redirect('/');
+        }
         if(!student){
             await Student.create(req.body);
             res.redirect('/');

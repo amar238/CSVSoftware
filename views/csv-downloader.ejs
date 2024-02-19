@@ -1,0 +1,38 @@
+<div class="content container mx-auto">
+    <h1 class="text-2xl font-bold mb-4 text-center">Student Records</h1>
+    <h4 class="text-center mb-4"><a href="/csv/download">Download Data in CSV File</a></h4>
+    <table class="table table-auto">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">Student</th>
+                <th class="px-4 py-2">Email</th>
+                <th class="px-4 py-2">College</th>
+                <th class="px-4 py-2">Batch</th>
+                <th class="px-4 py-2">DSA</th>
+                <th class="px-4 py-2">WebD</th>
+                <th class="px-4 py-2">React</th>
+                <th class="px-4 py-2">Company</th>
+                <th class="px-4 py-2">Position</th>
+                <th class="px-4 py-2">Interview-Date</th>
+                <th class="px-4 py-2">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(student => { %>
+                <tr>
+                    <td class="px-4"><%= student.name %></td>
+                    <td class="px-4"><%= student.email %></td>
+                    <td class="px-4"><%= student.college %></td>
+                    <td class="px-4"><%= student.batch %></td>
+                    <td class="px-4"><%= student.dsa %></td>
+                    <td class="px-4"><%= student.web_dev %></td>
+                    <td class="px-4"><%= student.react %></td>
+                    <td class="px-4"><%= student.company %></td>
+                    <td class="px-4"><%= student.pos %></td>
+                    <td class="px-4"><%= student.interview_date %></td>
+                    <td class="px-4"><%= student.result%></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

@@ -13,10 +13,7 @@ function editRowStats(button) {
     const reactData = reactCell.innerText;
     
     // Replace the data with input fields
-    dsaCell.innerHTML = `<input type="number" value="${dsaData}">`;
-    webDCell.innerHTML = `<input type="number" value="${webDData}">`;
-    reactCell.innerHTML = `<input type="number" value="${reactData}">`;
-    
+    555
     // Hide edit button and show update and cancel buttons
     button.style.display = 'none';
     row.querySelector('.delete-btn').style.display = 'none';
@@ -33,7 +30,7 @@ function cancelEditStats(button) {
     row.querySelector('td:nth-child(4)').innerHTML = stats.dsa;
     row.querySelector('td:nth-child(5)').innerHTML = stats.webD;
     row.querySelector('td:nth-child(6)').innerHTML = stats.react;
-    
+    ;p;/
     // Show edit button and hide update and cancel buttons
     row.querySelector('.edit-btn').style.display = 'inline-block';
     row.querySelector('.delete-btn').style.display = 'inline-block';
