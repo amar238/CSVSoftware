@@ -4,27 +4,20 @@
 This web app is an all-inclusive platform for managing various aspects of a training or educational initiative. Features for managing users, batches, student information, course score monitoring, interviewing, and result analysis are all included. Furthermore, the feature of the CSV downloader improves reporting and data accessibility.
 
 ## Project Structure
-CSVSoftware/
-│
-├── assets/                 (directory containing static files like CSS, JS for separate modules)
-│         ├── css/
-│         └── js/
-│
-├── config/                 (middleware for mongoDB connectivity and passport authentication strategy)
-|
-├── controllers/            (controller logic all components mentioned below)
-|
-├── models/                 (directory containing data models for respective components) 
-|
-├── routes/                 (route definitions for respective components)
-|
-├── views/                  (directory containing all templates) 
-│
-├── customFunctions/        (custom library for functions to access globally)
-├── .gitignore              (file specifying which files/folders to ignore in git)
-├── package.json            (file containing metadata and dependencies)
-├── README.md               (file containing project documentation)
-└── app.js                  (entry point file where the server is initialized)
+- CSVSoftware/
+  - assets/                 (directory containing static files like CSS, JS for separate modules)
+    - css/.
+    - js/.
+  - config/                 (middleware for MongoDB connectivity and Passport authentication strategy).
+  - controllers/            (controller logic for all components mentioned below).
+  - models/                 (directory containing data models for respective components)
+  - routes/                 (route definitions for respective components)
+  - views/                  (directory containing all templates)
+  - customFunctions.js        (custom library for functions to access globally)
+  - .gitignore              (file specifying which files/folders to ignore in git)
+  - package.json            (file containing metadata and dependencies)
+  - README.md               (file containing project documentation)
+  - app.js                  (entry point file where the server is initialized)
 
 ## Installation
 - Clone the repository: `git clone https://github.com/amar238/CSVSoftware.git`
