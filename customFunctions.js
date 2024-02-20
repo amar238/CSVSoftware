@@ -11,3 +11,4 @@ module.exports.sortBatches = (a, b) => {
     ];
     return monthsOrder.indexOf(a.month) - monthsOrder.indexOf(b.month);
 };
+

@@ -33,7 +33,6 @@ module.exports.getData = async(req,res)=>{
             data.push(student_details);
         }
 
-        console.log(data[1])
         res.render('csv-downloader',{data});
     } catch (error) {
         console.log(error);

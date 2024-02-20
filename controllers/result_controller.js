@@ -51,14 +51,17 @@ module.exports.interviews = async(req,res)=>{
 module.exports.result = async(req,res)=>{
     try {
         const interview = await Interview.findById(req.params.id).populate({path:'students',populate:{path:'batch'}});
-        const results = await Result.find({company:interview._id, result:"Pending"});
+        var results = await Result.find({company:interview._id, result:"Pending"});
         var resultArray = [];
         for(student_index in interview.students){
-            var result = results.find(result=>result.student.toString()=== interview.students[student_index]._id.toString());
-            if(!result || result.result != 'Pending'){//to change undefined
-                interview.students = interview.students.filter(student => student._id !== result.student.toString());
+            var result = results.find(res=>res.student.toString()=== interview.students[student_index]._id.toString());
+            if(result){
+                if(result.result != 'Pending'){//to change undefined
+                    interview.students = interview.students.filter(student => student._id !== result.student.toString());
+                }
+                resultArray.push(interview.students[student_index]);
             }
-            resultArray.push(interview.students[student_index]);
+            
         }       
         return res.render('result',{interview,resultArray,resultOptions});        
     } catch (error) {
