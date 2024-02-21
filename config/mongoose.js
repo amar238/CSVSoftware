@@ -6,7 +6,7 @@ var DB = process.env.DB
 
 
 // local mongoDB address
-mongoose.connect(`mongodb://${Username}:${Password}@${DB}`);
+mongoose.connect(`mongodb+srv://${Username}:${Password}@${DB}`);
 const db = mongoose.connection;
 db.on('error',console.error.bind(console,"Error in connceting db"));
 db.once('open',()=>{
@@ -14,3 +14,4 @@ db.once('open',()=>{
 })
 
 module.exports = db;
+
