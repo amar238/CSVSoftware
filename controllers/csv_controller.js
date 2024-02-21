@@ -55,11 +55,11 @@ module.exports.download = async(req,res)=>{
         for( i in results){
             var scores = await CourseScore.findOne({student:results[i].student._id});
             student_details={
+                id: results[i].student._id,
                 name: results[i].student.name,
                 email: results[i].student.email,
                 college: results[i].student.college,
                 batch: results[i].student.batch.year +" "+results[i].student.batch.month,
-                // placement: results[i].student.status,
                 dsa: scores.dsa,
                 web_dev: scores.webD,
                 react: scores.react,

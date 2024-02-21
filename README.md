@@ -22,6 +22,7 @@ This web app is an all-inclusive platform for managing various aspects of a trai
 ## Installation
 - Clone the repository: `git clone https://github.com/amar238/CSVSoftware.git`
 - Install dependencies: `npm install`
+- Replace your local mongodb address in 'config/mongoose.js' file
 
 ## Usage
 - Run the application: `node app.js`
