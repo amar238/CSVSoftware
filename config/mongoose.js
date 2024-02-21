@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // local mongoDB address
-mongoose.connect("mongodb://localhost:27017/csv");
+mongoose.connect(process.env.DB);
 const db = mongoose.connection;
 db.on('error',console.error.bind(console,"Error in connceting db"));
 db.once('open',()=>{

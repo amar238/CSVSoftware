@@ -47,7 +47,7 @@ app.use(passport.setAuthenticatedUser);
 // express router////////////////////////////////////////
 app.use('/',require('./routes'));//by default fetches index of routes
 // starting server on port
-app.listen(port,(err)=>{
+app.listen(process.env.PORT || port,(err)=>{
     if(err){
         console.log(`Error in running server: ${err}`);
         
