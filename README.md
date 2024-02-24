@@ -37,5 +37,10 @@ This web app is an all-inclusive platform for managing various aspects of a trai
 - Results: Present the candidates' results from the interview. Input the results of the candidates whos results are pending.
 - CSV Downloader: Display student records with information on the student, the college, the batch, the course scores, and the interview data (company name, position, date, and result). Download the same data in csv file format.  
 
+## Future Enhancement
+- Superadmin to approve only employees can sign up
+- Verification process for new employees
+- Alert notifications for errors
+  
 ## Contact
 For questions or support, please contact me at amargurav238@gmail.com
