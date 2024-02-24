@@ -1,6 +1,8 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
+require("dotenv").config();
+
 const port = 8000;
 const db = require('./config/mongoose');
 

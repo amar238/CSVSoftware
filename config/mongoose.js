@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
-var Username = encodeURIComponent(process.env.username);
+var Username = encodeURIComponent(process.env.user);
 var Password = encodeURIComponent(process.env.password);
-var DB = process.env.DB
+var DB = encodeURIComponent(process.env.mongoDB);
 
+mongoose.set('strictQuery',false);
 
-// local mongoDB address
+// mongoDB address
 mongoose.connect(`mongodb+srv://${Username}:${Password}@${DB}`);
+
 const db = mongoose.connection;
 db.on('error',console.error.bind(console,"Error in connceting db"));
 db.once('open',()=>{
